@@ -2,6 +2,10 @@ DROP DATABASE IF EXISTS passwords;
 
 CREATE DATABASE passwords;
 
+SET block_encryption_mode = 'aes-256-cbc';
+SET @key_str = UNHEX(SHA2('my secret passphrase', 512));
+SET @init_vector = RANDOM_BYTES(16);
+
 USE passwords;
 
 CREATE TABLE IF NOT EXISTS users (
@@ -26,7 +30,7 @@ CREATE TABLE IF NOT EXISTS passwords (
     pass_id        SMALLINT(5)    NOT NULL,
     password       VARBINARY(512) NOT NULL,
     comment        TEXT NOT NULL,
-    timestamp      DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -- timestamp      DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (pass_id)
 );
@@ -47,11 +51,11 @@ VALUES
 INSERT INTO websites
 VALUES
 (00001, "Youtube", "https://youtube.com/"),
-(00001, "Club Penguin", "https://clubpenguin.com/");
+(00002, "Club Penguin", "https://clubpenguin.com/");
 
 INSERT INTO passwords
 VALUES
-(00001, AES_ENCRYPT("pass1234", @key_str, @init_vector), ""),
+(00001, AES_ENCRYPT("pass1234", @key_str, @init_vector), "don't forget this password!!"),
 (00002, AES_ENCRYPT("word5678", @key_str, @init_vector), "");
 
 INSERT INTO log_passwords
