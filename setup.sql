@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS accounts (
   PRIMARY KEY (userId, webId) -- Same user cant have the same user information for the same website
 );
 
+-- Insert initial data that will make up 10 entries
 INSERT INTO users (username, fname, lname, email)
 VALUES
   ("userone", "John", "Yousir", "johnsir@user.org"),
@@ -46,6 +47,7 @@ VALUES
   ("userfive", "John", "Michaels", "jman2@gmail.com"),
   ("usersix", "Natalie", "Night", "nn123@user.org");
 
+-- Websites to use for initial data
 INSERT INTO websites (webName, webUrl)
 VALUES
   ("Youtube", "https://youtube.com/"),
@@ -56,6 +58,7 @@ VALUES
   ("Instagram", "https://instagram.com/"),
   ("LinkedIn", "https://linkedin.com/");
 
+-- The initial 10 entries into the database
 INSERT INTO accounts (userId, webId, password, comment)
 VALUES
 (1, 1, AES_ENCRYPT("pass1234", @key_str, @init_vector), "don't forget this password!!"),
